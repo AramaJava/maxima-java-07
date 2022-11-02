@@ -5,17 +5,19 @@ import java.util.Optional;
 
 public interface BaseRepository <T> {
 
-    Optional<List<T>> read(Long id);
+    List<T> read(int id);
 
     void create(T t);
 
     void update(T t, String[] params);
 
-    void delete(Long id);
+    void delete(int id);
 
     List<T> findAll();
 
 }
+
+
 
   //  С Optional и обобщениями - хорошие идеи.
 //  Но тогда уж List> :))
