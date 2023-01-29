@@ -26,7 +26,7 @@ public class DBUtils {
             throw new RuntimeException(e);
         }
 
-            Connection connection;
+        Connection connection;
 
         try {
             connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
@@ -34,6 +34,6 @@ public class DBUtils {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    return connection;
+        return connection;
     }
 }
