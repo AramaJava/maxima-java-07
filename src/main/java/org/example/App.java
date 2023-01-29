@@ -22,7 +22,6 @@ import java.sql.*;
     в конструкторе класса выбраным Вами способом
  */
 
-
 public class App
 {
 
