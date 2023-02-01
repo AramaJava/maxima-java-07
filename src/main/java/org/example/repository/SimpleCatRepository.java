@@ -2,12 +2,16 @@ package org.example.repository;
 
 import org.example.model.Cat;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 
 public class SimpleCatRepository implements CatRepository {
+
     static String READ_CAT = "SELECT * FROM cats WHERE id=?;";
     static String INSERT_CAT = "INSERT INTO cats (id, name, weight, isAngry) VALUES (?,?,?,?);";
     static String UPDATE_CAT = "UPDATE cats SET name=?, weight=?, isAngry=? WHERE id=?;";
@@ -15,10 +19,37 @@ public class SimpleCatRepository implements CatRepository {
     static String CREATE_CATS = "CREATE TABLE cats (id BIGINT PRIMARY KEY, name VARCHAR(45) NOT NULL, weight SMALLINT NOT NULL, isAngry BIT);";
     static String FINDALL_CATS = "SELECT * FROM cats;";
 
+    private static Connection getConnection() {
+        String dbURL;
+        String dbUsername = "sa";
+        String dbPassword = "";
+
+        FileInputStream fis;
+
+        Properties properties = new Properties();
+        try {
+            fis = new FileInputStream("src/main/resources/database.properties");
+            properties.load(fis);
+            dbURL = properties.getProperty("db.host");
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        Connection connection;
+
+        try {
+            connection = DriverManager.getConnection(dbURL, dbUsername, dbPassword);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return connection;
+    }
 
     public SimpleCatRepository() {
         try {
-            Connection connection = DBUtils.getConnection();
+            Connection connection = getConnection();
             Statement stmt = connection.createStatement();
             stmt.execute(CREATE_CATS);
         } catch (SQLException e) {
@@ -28,7 +59,7 @@ public class SimpleCatRepository implements CatRepository {
 
     @Override
     public boolean create(Cat element) {
-        try (Connection connection = DBUtils.getConnection();
+        try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_CAT)) {
             preparedStatement.setLong(1, element.getId());
             preparedStatement.setString(2, element.getName());
@@ -45,7 +76,7 @@ public class SimpleCatRepository implements CatRepository {
 
     @Override
     public Cat read(Long id) {
-        try (Connection connection = DBUtils.getConnection();
+        try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(READ_CAT)) {
             preparedStatement.setLong(1, id);
             ResultSet rs = preparedStatement.executeQuery();
@@ -61,7 +92,7 @@ public class SimpleCatRepository implements CatRepository {
     @Override
     public int update(Long id, Cat element) {
 
-        try (Connection connection = DBUtils.getConnection();
+        try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_CAT)) {
             preparedStatement.setString(1, element.getName());
             preparedStatement.setInt(2, element.getWeight());
@@ -77,7 +108,7 @@ public class SimpleCatRepository implements CatRepository {
 
     @Override
     public void delete(Long id) {
-        try (Connection connection = DBUtils.getConnection();
+        try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_CAT)) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
@@ -91,7 +122,7 @@ public class SimpleCatRepository implements CatRepository {
 
         List<Cat> cats = new ArrayList<>();
 
-        try (Connection connection = DBUtils.getConnection();
+        try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(FINDALL_CATS)) {
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
