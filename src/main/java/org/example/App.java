@@ -1,7 +1,16 @@
 package org.example;
 
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+import org.example.model.Cat;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Objects;
+import java.util.Properties;
 import java.sql.*;
+import java.util.function.Function;
 
 
 /* Задача:
@@ -25,24 +34,46 @@ import java.sql.*;
 public class App
 {
 
-    public static final String DB_URL="jdbc:h2:mem:test";
+ /*   public static final String DB_URL="jdbc:h2:mem:test";
     public static final String DB_DRIVER="org.h2.Driver";
-
+*/
     public static void main( String[] args ) {
-
         try {
+            String dbPropsPath = Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("database.properties")).getPath();
+
+            Properties dbProps = new Properties();
+            dbProps.load(new FileInputStream(dbPropsPath));
 
 
-            Class.forName(DB_DRIVER);
-            Connection connection = DriverManager.getConnection(DB_URL);
+            HikariConfig config = new HikariConfig();
+            config.setDriverClassName(dbProps.getProperty("db.driver"));
+            config.setJdbcUrl(dbProps.getProperty("db.host"));
+
+            HikariDataSource ds = new HikariDataSource(config);
+            Connection connection = ds.getConnection();
+
             System.out.println( "Соединение с базой данных выполнено!" );
 
+            Function <ResultSet, Cat> catRowMapper = rs -> {
+                try {
+                    return new Cat(
+                            rs.getLong("Id"),
+                            rs.getString("Name"),
+                            rs.getInt("Weight"),
+                            rs.getBoolean("isAngry")
+                    );
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            };
+
+
             Statement statement = connection.createStatement();
-            statement.executeUpdate("CREATE TABLE cats (Name VARCHAR(45), Weight INT, isAngry BIT)");
-            statement.executeUpdate("INSERT INTO  cats (Name, Weight, isAngry) VALUES ('Мурзик', 2, true)");
-            statement.executeUpdate("INSERT INTO  cats (Name, Weight, isAngry) VALUES ('Рамзес', 3, false)");
-            statement.executeUpdate("INSERT INTO  cats (Name, Weight, isAngry) VALUES ('Эдуард', 10, true )");
-            statement.executeUpdate("INSERT INTO  cats (Name, Weight, isAngry) VALUES ('Эдуард', 7, true)");
+            statement.executeUpdate("CREATE TABLE cats (Id BIGINT, Name VARCHAR(45), Weight INT, isAngry BIT)");
+            statement.executeUpdate("INSERT INTO  cats (Id, Name, Weight, isAngry) VALUES (1L, 'Мурзик', 2, true)");
+            statement.executeUpdate("INSERT INTO  cats (Id, Name, Weight, isAngry) VALUES (2L, 'Рамзес', 3, false)");
+            statement.executeUpdate("INSERT INTO  cats (Id, Name, Weight, isAngry) VALUES (3L, 'Эдуард', 10, true )");
+            statement.executeUpdate("INSERT INTO  cats (Id, Name, Weight, isAngry) VALUES (4L, 'Эдуард', 7, false)");
 //            statement.executeUpdate("ALTER TABLE  cats ADD IsAngry BIT");
 
 
@@ -55,24 +86,25 @@ public class App
             ResultSet resultSet = statement.executeQuery("SELECT * from cats");
             while (resultSet.next())
             {
-                String name = resultSet.getString("name");
-                int weight = resultSet.getInt("weight");
-                String isAngry = (resultSet.getBoolean("IsAngry")? "Сердитый" : "Добродушный");
-                System.out.printf("%s кот %s весом %d кг.%n", isAngry, name, weight);
+                Cat cat = catRowMapper.apply(resultSet);
+
+            //    String name = resultSet.getString("name");
+            //    int weight = resultSet.getInt("weight");
+                String isAngry = (cat.isAngry()? "Сердитый" : "Добродушный");
+                System.out.printf("%s кот %s весом %d кг.%n", cat.isAngry(), cat.getName(), cat.getWeight());
 
             }
-
 
             connection.close();
             System.out.println( "Отключение от базы выполнено успешно!" );
 
 
-        } catch (ClassNotFoundException e) {
-             e.printStackTrace();
-             System.out.println("Нет драйвера!");
+
         } catch (SQLException e) {
              e.printStackTrace();
              System.out.println("Ошибка SQL!");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

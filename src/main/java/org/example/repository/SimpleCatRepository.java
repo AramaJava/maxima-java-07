@@ -2,8 +2,10 @@ package org.example.repository;
 
 import org.example.model.Cat;
 
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
+
+import java.net.URL;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,16 +21,20 @@ public class SimpleCatRepository implements CatRepository {
     static String CREATE_CATS = "CREATE TABLE cats (id BIGINT PRIMARY KEY, name VARCHAR(45) NOT NULL, weight SMALLINT NOT NULL, isAngry BIT);";
     static String FINDALL_CATS = "SELECT * FROM cats;";
 
-    private static Connection getConnection() {
+    private Connection getConnection() throws IOException {
         String dbURL;
         String dbUsername = "sa";
         String dbPassword = "";
 
         FileInputStream fis;
-
         Properties properties = new Properties();
+
         try {
-            fis = new FileInputStream("src/main/resources/database.properties");
+            URL url = this.getClass()
+                    .getClassLoader()
+                    .getResource("database.properties");
+            assert url != null;
+            fis = new FileInputStream(url.getFile());
             properties.load(fis);
             dbURL = properties.getProperty("db.host");
 
@@ -47,12 +53,16 @@ public class SimpleCatRepository implements CatRepository {
         return connection;
     }
 
+    /*Описать класс SimpleCatRepository для реализации этого интерфейса.
+    URL базы данных и имя таблицы задайте в конструкторе класса выбраным Вами способом*/
+
+
     public SimpleCatRepository() {
         try {
             Connection connection = getConnection();
             Statement stmt = connection.createStatement();
             stmt.execute(CREATE_CATS);
-        } catch (SQLException e) {
+        } catch (SQLException | IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -69,6 +79,8 @@ public class SimpleCatRepository implements CatRepository {
             return true;
         } catch (SQLException e) {
             return false;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
     }
@@ -81,10 +93,12 @@ public class SimpleCatRepository implements CatRepository {
             preparedStatement.setLong(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             rs.next();
-             return new Cat(id, rs.getString("Name"), rs.getInt("Weight"), rs.getBoolean("IsAngry"));
+            return new Cat(id, rs.getString("Name"), rs.getInt("Weight"), rs.getBoolean("IsAngry"));
 
         } catch (SQLException e) {
             return null;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -102,6 +116,8 @@ public class SimpleCatRepository implements CatRepository {
 
         } catch (SQLException e) {
             return 0;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -112,7 +128,7 @@ public class SimpleCatRepository implements CatRepository {
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_CAT)) {
             preparedStatement.setLong(1, id);
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
+        } catch (SQLException | IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -133,7 +149,7 @@ public class SimpleCatRepository implements CatRepository {
                 cats.add(new Cat(id, name, weight, isAngry));
             }
 
-        } catch (SQLException e) {
+        } catch (SQLException | IOException e) {
             throw new RuntimeException(e);
         }
         return cats;

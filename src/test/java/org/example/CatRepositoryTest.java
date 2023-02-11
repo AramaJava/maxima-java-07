@@ -1,12 +1,19 @@
 package org.example;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.example.model.Cat;
+import org.example.repository.AdvancedCatRepository;
 import org.example.repository.CatRepository;
-import org.example.repository.SimpleCatRepository;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
+import java.util.Properties;
 
 
 import static junit.framework.TestCase.*;
@@ -15,12 +22,22 @@ public class CatRepositoryTest {
     private CatRepository repo;
 
     @Before
-    public void init() {
-        repo = new SimpleCatRepository();
+    public void initDBconnection() throws IOException {
+
+        String dbPropsPath = Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("database.properties")).getPath();
+        Properties dbProps = new Properties();
+        dbProps.load(new FileInputStream(dbPropsPath));
+
+        HikariConfig config = new HikariConfig();
+        config.setDriverClassName(dbProps.getProperty("db.driver"));
+        config.setJdbcUrl(dbProps.getProperty("db.host"));
+        HikariDataSource ds = new HikariDataSource(config);
+
+        repo = new AdvancedCatRepository(ds);
     }
 
     @Test
-    public void shouldCRUDWorks() {
+    public void shouldCRUDWorks() throws SQLException {
 
         Cat cat1 = new Cat(1L, "Мурзик", 10, true);
         Cat cat2 = new Cat(2L, "Рамзес", 2, false);

@@ -4,10 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="11f7de1d-c137-4bf7-9d01-d0c68de6e3bb" name="Changes" comment="ver2">
+    <list default="true" id="11f7de1d-c137-4bf7-9d01-d0c68de6e3bb" name="Changes" comment="adv rep v1">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/AdvancedCatRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/DBUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/BaseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/BaseRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/SimpleCatRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/SimpleCatRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/database.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/CatRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/CatRepositoryTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +56,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;tasks&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;
   },
   &quot;keyToStringList&quot;: {
     &quot;DatabaseDriversLRU&quot;: [
@@ -59,6 +64,11 @@
     ]
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="org.example.repository" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="CatRepositoryTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
       <module name="maxima-java-07" />
@@ -109,7 +119,12 @@
       <workItem from="1674977372998" duration="370000" />
       <workItem from="1674977760545" duration="18856000" />
       <workItem from="1675016046195" duration="1257000" />
-      <workItem from="1675218979628" duration="1526000" />
+      <workItem from="1675218979628" duration="1667000" />
+      <workItem from="1675220664558" duration="32000" />
+      <workItem from="1675430526860" duration="10000" />
+      <workItem from="1675898017666" duration="3652000" />
+      <workItem from="1675901676755" duration="23439000" />
+      <workItem from="1676096039434" duration="5808000" />
     </task>
     <task id="LOCAL-00001" summary="1">
       <created>1667428376137</created>
@@ -174,7 +189,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675016364672</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="ver2">
+      <created>1675220517124</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1675220517124</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -196,21 +218,17 @@
     <MESSAGE value="next" />
     <MESSAGE value="come again" />
     <MESSAGE value="ver2" />
-    <option name="LAST_COMMIT_MESSAGE" value="ver2" />
+    <MESSAGE value="adv rep v1" />
+    <option name="LAST_COMMIT_MESSAGE" value="adv rep v1" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/org/example/CatRepositoryTest.java</url>
-          <line>61</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="org.example.model.Student" memberName="id" />
+        <PinnedItemInfo parentTag="org.h2.expression.ExpressionVisitor" memberName="table" />
+        <PinnedItemInfo parentTag="org.h2.expression.ExpressionVisitor" memberName="columns1" />
+        <PinnedItemInfo parentTag="org.example.repository.AdvancedCatRepository" memberName="catRowMapper" />
+        <PinnedItemInfo parentTag="java.io.BufferedInputStream" memberName="buf" />
       </pinned-members>
     </pin-to-top-manager>
   </component>
