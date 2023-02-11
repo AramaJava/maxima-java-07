@@ -1,12 +1,17 @@
 package org.example.repository;
 
+import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.example.model.Cat;
 
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Properties;
 import java.util.function.Function;
 
 
@@ -30,7 +35,22 @@ public class AdvancedCatRepository implements CatRepository {
     db.driver — имя драйвера */
 
 
-    public AdvancedCatRepository(HikariDataSource ds) {
+    public AdvancedCatRepository() {
+
+        String dbPropsPath = Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("database.properties")).getPath();
+        Properties dbProps = new Properties();
+        try {
+            dbProps.load(new FileInputStream(dbPropsPath));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        HikariConfig config = new HikariConfig();
+        config.setDriverClassName(dbProps.getProperty("db.driver"));
+        config.setJdbcUrl(dbProps.getProperty("db.host"));
+        HikariDataSource ds = new HikariDataSource(config);
+
+
         try {
             connection = ds.getConnection();
             Statement stmt = connection.createStatement();

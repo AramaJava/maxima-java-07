@@ -5,13 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="11f7de1d-c137-4bf7-9d01-d0c68de6e3bb" name="Changes" comment="adv rep v1">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/AdvancedCatRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Starter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/config/SpringConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/SpringCatRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/BaseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/BaseRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/SimpleCatRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/SimpleCatRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/database.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Cat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Cat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/AdvancedCatRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/AdvancedCatRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/org/example/CatRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/CatRepositoryTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -43,27 +43,28 @@
     <option name="showMembers" value="true" />
     <option name="showVisibilityIcons" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "project.structure.last.edited": "Problems",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "MavenSettings",
+    "spring.configuration.checksum": "7c10f07d8b44be9f12029feaf80680b9"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;h2&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "h2"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="org.example.repository" />
@@ -124,7 +125,8 @@
       <workItem from="1675430526860" duration="10000" />
       <workItem from="1675898017666" duration="3652000" />
       <workItem from="1675901676755" duration="23439000" />
-      <workItem from="1676096039434" duration="5808000" />
+      <workItem from="1676096039434" duration="15950000" />
+      <workItem from="1676116939806" duration="2742000" />
     </task>
     <task id="LOCAL-00001" summary="1">
       <created>1667428376137</created>
@@ -196,7 +198,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675220517124</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="adv rep v1">
+      <created>1676102620801</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1676102620801</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -229,6 +238,7 @@
         <PinnedItemInfo parentTag="org.h2.expression.ExpressionVisitor" memberName="columns1" />
         <PinnedItemInfo parentTag="org.example.repository.AdvancedCatRepository" memberName="catRowMapper" />
         <PinnedItemInfo parentTag="java.io.BufferedInputStream" memberName="buf" />
+        <PinnedItemInfo parentTag="org.example.repository.SpringCatRepository" memberName="catRowMapper" />
       </pinned-members>
     </pin-to-top-manager>
   </component>

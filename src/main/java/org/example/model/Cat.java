@@ -16,6 +16,9 @@ public class Cat {
                 '}';
     }
 
+    protected Cat() {
+    }
+
     public Cat(long id, String name, int weight, boolean isAngry) {
         this.id = id;
         this.name = name;
